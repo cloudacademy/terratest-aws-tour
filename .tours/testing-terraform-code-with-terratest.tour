@@ -78,7 +78,7 @@
     {
       "file": "test/webserver_test.go",
       "description": "The `http_helper package` is used to perform an HTTP request to the web server's public IP address. The `HttpGetWithRetry` function repeatedly performs an HTTP GET request against the given URL until a `200` status code is retrieved and a `\"Cloud Academy Labs Are Great!\"` string is returned from the body.  This test retries the HTTP request on a loop `30` times every `5` seconds and errors out after reaching 30 retries. The retry loop allows the test to deal with the deployment time inconsistencies with Terraform and the cloud provider",
-      "line": 27,
+      "line": 34,
       "title": "Description"
     },
     {
