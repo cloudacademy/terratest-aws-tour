@@ -19,7 +19,7 @@
     },
     {
       "file": "test/webserver_test.go",
-      "description": "Begin writing your test by clicking **Insert Code** below:\n\n```go\npackage test\nimport (\n\t\"fmt\"\n\t\"testing\"\n\t\"time\"\n\thttp_helper \"github.com/gruntwork-io/terratest/modules/http-helper\"\n\t\"github.com/gruntwork-io/terratest/modules/terraform\"\n)\n\n\n```",
+      "description": "Begin writing your test by clicking **Insert Code** below:\n\n```go\npackage test\nimport (\n\t\"testing\"\n\t\"time\"\n\thttp_helper \"github.com/gruntwork-io/terratest/modules/http-helper\"\n\t\"github.com/gruntwork-io/terratest/modules/terraform\"\n)\n\n\n```",
       "line": 64,
       "title": "Package & Import"
     },
@@ -71,7 +71,7 @@
     },
     {
       "file": "test/webserver_test.go",
-      "description": "Insert the following code into the **TestTerraformWebserverExample** function:\n\n```go\n\n    // Retrieve the public IP address using Terraform Show\n    publicIp = terraform.Output(t, terraformOptions, \"public_ip\")\n    url = \"http://\" + publicIp + \":8080\"\n    // Perform an HTTP request to the Public IP to validate status 200 and the body contains the following string\n    http_helper.HttpGetWithRetry(t, url, nil, 200, \"Cloud Academy Labs Are Great!\", 30, 5*time.Second)\n}\n```\n\nThe `terraform.Output` function is used to retrieve the output after terraform `apply`. The public IP address of the web server is retrieved and then saved to the `publicIP` variable",
+      "description": "Insert the following code into the **TestTerraformWebserverExample** function:\n\n```go\n    // Retrieve the public IP address using Terraform Show\n    publicIp := terraform.Output(t, terraformOptions, \"public_ip\")\n    url := \"http://\" + publicIp + \":8080\"\n    // Perform an HTTP request to the Public IP to validate status 200 and the body contains the following string\n    http_helper.HttpGetWithRetry(t, url, nil, 200, \"Cloud Academy Labs Are Great!\", 30, 5*time.Second)\n}\n```\n\nThe `terraform.Output` function is used to retrieve the output after terraform `apply`. The public IP address of the web server is retrieved and then saved to the `publicIP` variable",
       "line": 41,
       "title": "HTTP Helper"
     },
@@ -83,7 +83,7 @@
     },
     {
       "directory": "test",
-      "description": "Change into the **test** directory and download the GO dependencies by clicking the following command:\n\n>> go get -t -v\n\nThis command will run in the terminal window.\n\nThe dependencies include the packages that were specified during the **import** declaration. This process may take a minute. ",
+      "description": "Change into the **test** directory and download the GO dependencies by clicking the following command:\n\n>> cd test && go get -t -v\n\nThis command will run in the terminal window.\n\nThe dependencies include the packages that were specified during the **import** declaration. This process may take a minute. ",
       "selection": {
         "start": {
           "line": 7,
