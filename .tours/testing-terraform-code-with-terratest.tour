@@ -20,7 +20,7 @@
     {
       "file": "test/webserver_test.go",
       "description": "Begin writing your test by clicking **Insert Code** below:\n\n```go\npackage test\nimport (\n\t\"fmt\"\n\t\"testing\"\n\t\"time\"\n\thttp_helper \"github.com/gruntwork-io/terratest/modules/http-helper\"\n\t\"github.com/gruntwork-io/terratest/modules/terraform\"\n)\n\n\n```",
-      "line": 10,
+      "line": 64,
       "title": "Package & Import"
     },
     {
@@ -31,8 +31,8 @@
     },
     {
       "file": "test/webserver_test.go",
-      "description": "Insert the following function snippet:\n\n```go\nfunc TestTerraformWebserverExample(t *testing.T) {\n\n\n    \n}\n\n\n```\n\nA testing function is named `TestTerraformWebserverExample`. Testing functions in GO need to start with the word `Test` with a capital T followed by a capitalized letter after Test. This testing function will contain the code for the test.",
-      "line": 22,
+      "description": "Insert the following function snippet:\n\n```go\nfunc TestTerraformWebserverExample(t *testing.T) {\n\n\n```\n\nA testing function is named `TestTerraformWebserverExample`. Testing functions in GO need to start with the word `Test` with a capital T followed by a capitalized letter after Test. This testing function will contain the code for the test.",
+      "line": 52,
       "selection": {
         "start": {
           "line": 10,
@@ -48,67 +48,37 @@
     {
       "file": "test/webserver_test.go",
       "description": "Add the following to the **TestTerraformWebserverExample**:\n\n```go\n    // The values to pass into the Terraform CLI\n    terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{\n            \n        // The path to where the example Terraform code is located\n        TerraformDir: \"../examples/webserver\",\n        // Variables to pass to the Terraform code using -var options\n        Vars: map[string]interface{}{\n                \"region\":    \"us-west-2\",\n                \"servername\": \"testwebserver\",\n            },\n    })\n\n\n```",
-      "line": 23,
+      "line": 119,
       "title": "Terraform Options"
     },
     {
       "file": "test/webserver_test.go",
       "description": "The variable `terraformOptions` is declared. In GO you can declare variables using `:=`. Inside the variable declaration, the **github.com/gruntwork-io/terratest/modules/terraform** library is being used to pass values into Terraform. `&terraform.Options` is an object in Golang called a struct. The struct contains key-value pairs that make up a collection of settings that can be then passed into the Terraform CLI. This includes the directory of the Terraform example code to run for the test as well as the variables to input while performing a `terraform apply`.",
       "line": 22,
-      "selection": {
-        "start": {
-          "line": 1,
-          "character": 551
-        },
-        "end": {
-          "line": 1,
-          "character": 566
-        }
-      },
       "title": "Description"
     },
     {
       "file": "test/webserver_test.go",
-      "description": "Insert the following code into the **TestTerraformWebserverExample** function:\n\n```go\n    // Run a Terraform init and apply with the Terraform options\n    terraform.InitAndApply(t, terraformOptions)\n    // Run a Terraform Destroy at the end of the test\n    defer terraform.Destroy(t, terraformOptions)\n\n    \n```\n\nThe Terratest library is used again by referencing the `terraform` package and using the `Destroy` and `InitAndApply` functions.",
-      "line": 28,
-      "title": "Init, Apply, & Destroy"
+      "description": "Insert the following code into the **TestTerraformWebserverExample** function:\n\n```go\n    // Run a Terraform init and apply with the Terraform options\n    terraform.InitAndApply(t, terraformOptions)\n    // Run a Terraform Destroy at the end of the test\n    defer terraform.Destroy(t, terraformOptions)\n    \n\n```\n\nThe Terratest library is used again by referencing the `terraform` package and using the `Destroy` and `InitAndApply` functions.",
+      "line": 73,
+      "title": "Init & Apply"
     },
     {
       "file": "test/webserver_test.go",
       "description": "This will perform a `terraform init` and `terraform apply` using the settings declared in the `terraformOptions` variable.  The defer before `terraform.Destroy` means that GO will run the function at the end and will always run it even if the test were to error out. \n\nThe current testing function will deploy the Terraform code in the examples directory and pass in variables using a `terraform apply`. Then a terraform `destroy` will execute to remove the test infrastructure. In the next step, a test will be added to perform an HTTP request to validate the web server is working after the terraform `apply`.",
-      "line": 27,
-      "selection": {
-        "start": {
-          "line": 3,
-          "character": 336
-        },
-        "end": {
-          "line": 3,
-          "character": 341
-        }
-      },
+      "line": 23,
       "title": "Description"
     },
     {
       "file": "test/webserver_test.go",
-      "description": "Insert the following code into the **TestTerraformWebserverExample** function:\n\n```go\n    // Retrieve the public IP address using Terraform Show\n    publicIp := terraform.Output(t, terraformOptions, \"public_ip\")\n    // Perform an HTTP request to the Public IP to validate status 200 and the body contains the following string\n    url := fmt.Sprintf(\"http://%s:8080\", publicIp)\n    http_helper.HttpGetWithRetry(t, url, nil, 200, \"Cloud Academy Labs Are Great!\", 30, 5*time.Second)\n```\n\nThe `terraform.Output` function is used to retrieve the output after terraform `apply`. The public IP address of the web server is retrieved and then saved to the `publicIP` variable",
-      "line": 28,
-      "selection": {
-        "start": {
-          "line": 4,
-          "character": 1
-        },
-        "end": {
-          "line": 8,
-          "character": 103
-        }
-      },
+      "description": "Insert the following code into the **TestTerraformWebserverExample** function:\n\n```go\n\n    // Retrieve the public IP address using Terraform Show\n    publicIp = terraform.Output(t, terraformOptions, \"public_ip\")\n    url = \"http://\" + publicIp + \":8080\"\n    // Perform an HTTP request to the Public IP to validate status 200 and the body contains the following string\n    http_helper.HttpGetWithRetry(t, url, nil, 200, \"Cloud Academy Labs Are Great!\", 30, 5*time.Second)\n}\n```\n\nThe `terraform.Output` function is used to retrieve the output after terraform `apply`. The public IP address of the web server is retrieved and then saved to the `publicIP` variable",
+      "line": 41,
       "title": "HTTP Helper"
     },
     {
       "file": "test/webserver_test.go",
       "description": "The `http_helper package` is used to perform an HTTP request to the web server's public IP address. The `HttpGetWithRetry` function repeatedly performs an HTTP GET request against the given URL until a `200` status code is retrieved and a `\"Cloud Academy Labs Are Great!\"` string is returned from the body.  This test retries the HTTP request on a loop `30` times every `5` seconds and errors out after reaching 30 retries. The retry loop allows the test to deal with the deployment time inconsistencies with Terraform and the cloud provider",
-      "line": 33,
+      "line": 27,
       "title": "Description"
     },
     {
@@ -154,11 +124,12 @@
     {
       "directory": "test",
       "description": "This test can now be executed every time after modifying the Terraform module to confirm that it works as expected quickly. \n\nBe sure to check out the [Terratest documentation](terratest.gruntwork.io/docs/) for more info on how to effectively test your Terraform modules.\n\n*Note*: Terratest should be used in a separate AWS account from production. It is recommended to have an account just for testing your Terraform code. This way automated cleanup can be run against the account to ensure resources are not left behind.",
-      "title": "Complete"
+      "title": "Description"
     },
     {
       "directory": "",
-      "description": "You have successfully written a Terraform resource test using GO. \n\nReturn to the Cloud Academy Lab browser tab and complete the lab.\n"
+      "description": "You have successfully written a Terraform resource test using GO. \n\nReturn to the Cloud Academy Lab browser tab and complete the lab.\n",
+      "title": "Complete"
     }
   ]
 }
